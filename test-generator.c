@@ -1,7 +1,7 @@
 #if 0
 gcc -o test-generator *.c -Wall -Wfatal-errors -O3
 if [ "$?" = "0" ]; then
-	time ./test-symmetric
+	time ./test-generator
 fi
 exit
 #endif

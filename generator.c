@@ -52,7 +52,6 @@ int generator_symmetric_Next
 (generator_symmetric g, uint64_t previous, uint64_t *res)
 {
 	// Need a mask to filter out the part.
-	uint64_t mask = ~0ULL >> (64-g.bits);
 	int odd = g.bits & 1;
 	// Odd.
 	int half = (g.bits >> 1) + odd;
@@ -60,7 +59,7 @@ int generator_symmetric_Next
 	// Get the number that creates the mirror image.
 	uint64_t p = previous >> (half-odd);
 	p++;
-	if (p > mask) return 0;
+	if (p > halfmask) return 0;
 	// Support reversing of multiple bytes.
 	if (half > 8) {
 		*res = 0ULL;
