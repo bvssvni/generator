@@ -16,6 +16,7 @@ exit
 func(generator, Linear);
 func(generator, Power2);
 func(generator, Symmetric);
+func(generator, UpperTriangle);
 func(generator, Next);
 func(generator, Or);
 func(generator, And);
@@ -159,6 +160,19 @@ void test_except_1(void)
 	assert(buf == 8ULL);
 }
 
+void test_upper_triangle_1(void)
+{
+	generator a = UpperTriangle(3);
+	uint64_t buf;
+	assert(Next(a, 0ULL, &buf));
+	assert(buf == 1ULL);
+	assert(Next(a, 1ULL, &buf));
+	assert(buf == 2ULL);
+	assert(Next(a, 2ULL, &buf));
+	assert(buf == 5ULL);
+	assert(!Next(a, 5ULL, &buf));
+}
+
 int main(int argc, char *argv[])
 {
 	test_linear_1();
@@ -172,5 +186,6 @@ int main(int argc, char *argv[])
 	test_or_1();
 	test_and_1();
 	test_except_1();
+	test_upper_triangle_1();
 	return 0;
 }

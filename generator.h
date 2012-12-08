@@ -36,6 +36,7 @@ enum {
 	GENERATOR_TYPE_LINEAR = 1,
 	GENERATOR_TYPE_POWER2 = 2,
 	GENERATOR_TYPE_SYMMETRIC = 3,
+	GENERATOR_TYPE_UPPER_TRIANGLE = 4,
 };
 typedef struct generator generator;
 // Describes data for a linear generator.
@@ -54,6 +55,11 @@ typedef struct
 {
 	int bits;
 } generator_symmetric;
+// Matrix generators has a width.
+typedef struct
+{
+	int width;
+} generator_matrix;
 // Unites types of generators into one structure.
 struct generator
 {
@@ -62,6 +68,7 @@ struct generator
 		generator_linear linear;
 		generator_power2 power2;
 		generator_symmetric symmetric;
+		generator_matrix matrix;
 	} data;
 };
 // Creates a generator of the form ax + b.
@@ -72,6 +79,8 @@ generator generator_Power2(void);
 // This is the generator of numbers where the upper half is a mirror image
 // of the lower.
 generator generator_Symmetric(int bits);
+// Creates a generator for the upper triangle.
+generator generator_UpperTriangle(int width);
 // Returns the next number from a generator.
 int generator_Next(generator g, uint64_t previous, uint64_t *res);
 // Combines numbers created from two generators with an OR operation.
